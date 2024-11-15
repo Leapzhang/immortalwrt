@@ -1,33 +1,27 @@
 /dts-v1/;
 
-#include "ipq6018.dtsi"
 #include "ipq6018-512m.dtsi"
 #include "ipq6018-ess.dtsi"
 #include "ipq6018-nss.dtsi"
 
 #include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/input/input.h>
-#include <dt-bindings/leds/common.h>
 
 / {
 	model = "JDCloud RE-SS-01";
-	compatible = "jdcloud,re-ss-01", "qcom,ipq6018-cp03", "qcom,ipq6018";
+	compatible = "jdcloud,re-ss-01", "qcom,ipq6018";
 
 	aliases {
 		serial0 = &blsp1_uart3;
-		led-boot = &led_status_blue;
+		led-boot = &led_status_green;
 		led-failsafe = &led_status_red;
-		led-running = &led_status_green;
+		led-running = &led_status_blue;
 		led-upgrade = &led_status_red;
 
-		ethernet0 = &dp1;
-		ethernet1 = &dp2;
-		ethernet2 = &dp3;
-		ethernet3 = &dp4;
-	};
-
-	chosen {
-		stdout-path = "serial0:115200n8";
+		ethernet1 = "/soc/dp2";
+		ethernet2 = "/soc/dp3";
+		ethernet3 = "/soc/dp4";
+		ethernet4 = "/soc/dp5";
 	};
 
 	keys {
@@ -50,45 +44,33 @@
 
 	leds {
 		compatible = "gpio-leds";
-		pinctrl-0 = <&leds_pins>;
-		pinctrl-names = "default";
 
 		led_status_red: red {
 			label = "red:status";
 			gpios = <&tlmm 37 GPIO_ACTIVE_HIGH>;
 		};
 
-		led_status_green: green {
-			label = "green:status";
-			gpios = <&tlmm 50 GPIO_ACTIVE_HIGH>;
-		};
-
 		led_status_blue: blue {
 			label = "blue:status";
 			gpios = <&tlmm 35 GPIO_ACTIVE_HIGH>;
+		};
+
+		led_status_green: green {
+			label = "green:status";
+			gpios = <&tlmm 50 GPIO_ACTIVE_HIGH>;
 		};
 	};
 };
 
 &tlmm {
 	gpio-reserved-ranges = <20 1>;
-	compatible = "qcom,ipq6018-pinctrl";
 
-	button_pins: button-pins {
+	button_pins: button_pins {
 		mux {
 			pins = "gpio8", "gpio9";
 			function = "gpio";
 			drive-strength = <8>;
 			bias-pull-up;
-		};
-	};
-
-	leds_pins: leds-pins {
-		mux {
-			pins = "gpio35", "gpio37", "gpio50";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-down;
 		};
 	};
 
@@ -110,18 +92,33 @@
 };
 
 &blsp1_uart3 {
-	status = "okay";
-
 	pinctrl-0 = <&serial_3_pins>;
 	pinctrl-names = "default";
+	status = "okay";
 };
 
-&sdhc_1 {
+&qusb_phy_0 {
 	status = "okay";
+};
 
-	/delete-property/ mmc-hs400-1_8v;
-	mmc-hs200-1_8v;
+&rpm {
+	status = "disabled";
+};
+
+&sdhc {
+	bus-width = <8>;
 	mmc-ddr-1_8v;
+	mmc-hs200-1_8v;
+	non-removable;
+	status = "okay";
+};
+
+&ssphy_0 {
+	status = "okay";
+};
+
+&usb3 {
+	status = "okay";
 };
 
 &mdio {
@@ -130,11 +127,6 @@
 	pinctrl-0 = <&mdio_pins>;
 	pinctrl-names = "default";
 	reset-gpios = <&tlmm 75 GPIO_ACTIVE_LOW>;
-
-	qca8075_0: ethernet-phy@0 {
-		compatible = "ethernet-phy-ieee802.3-c22";
-		reg = <0>;
-	};
 
 	qca8075_1: ethernet-phy@1 {
 		compatible = "ethernet-phy-ieee802.3-c22";
@@ -150,102 +142,74 @@
 		compatible = "ethernet-phy-ieee802.3-c22";
 		reg = <3>;
 	};
+
+	qca8075_4: ethernet-phy@4 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <4>;
+	};
 };
 
 &switch {
 	status = "okay";
 
-	switch_lan_bmp = <0x1e>;
-	switch_wan_bmp = <0x20>;
-	switch_mac_mode = <0x00>;
-	switch_mac_mode1 = <0xff>;
-	switch_mac_mode2 = <0xff>;
+	switch_cpu_bmp = <0x1>;  /* cpu port bitmap */
+	switch_lan_bmp = <0x1e>; /* lan port bitmap */
+	switch_wan_bmp = <0x20>; /* wan port bitmap */
+	switch_inner_bmp = <0xc0>; /*inner port bitmap*/
+	switch_mac_mode = <0x0>; /* mac mode for uniphy 0*/
+	switch_mac_mode1 = <0xff>; /* mac mode for uniphy 1*/
+	switch_mac_mode2 = <0xff>; /* mac mode for uniphy 2*/
 
 	qcom,port_phyinfo {
-		port@0 {
-			port_id = <0x01>;
-			phy_address = <0x00>;
-		};
-
-		port@1 {
-			port_id = <0x02>;
-			phy_address = <0x01>;
-		};
-
 		port@2 {
-			port_id = <0x03>;
-			phy_address = <0x02>;
+			port_id = <2>;
+			phy_address = <1>;
 		};
-
 		port@3 {
-			port_id = <0x04>;
-			phy_address = <0x03>;
+			port_id = <3>;
+			phy_address = <2>;
+		};
+		port@4 {
+			port_id = <4>;
+			phy_address = <3>;
+		};
+		port@5 {
+			port_id = <5>;
+			phy_address = <4>;
 		};
 	};
-};
-
-&wifi {
-	status = "okay";
-	qcom,ath11k-fw-memory-mode = <1>;
-	qcom,ath11k-calibration-variant = "JDC-AX1800-Pro";
-};
-
-&dp1 {
-	status = "okay";
-	phy-handle = <&qca8075_0>;
-	label = "lan1";
-};
-
-&dp2 {
-	status = "okay";
-	phy-handle = <&qca8075_1>;
-	label = "lan2";
-};
-
-&dp3 {
-	status = "okay";
-	phy-handle = <&qca8075_2>;
-	label = "lan3";
-};
-
-&dp4 {
-	status = "okay";
-	phy-handle = <&qca8075_3>;
-	label = "wan";
-};
-
-&rpm {
-	status = "disabled";
 };
 
 &edma {
 	status = "okay";
 };
 
-&usb3 {
+&dp2 {
 	status = "okay";
+	phy-handle = <&qca8075_1>;
+	label = "lan1";
 };
 
-&qusb_phy_0 {
+&dp3 {
 	status = "okay";
+	phy-handle = <&qca8075_2>;
+	label = "lan2";
 };
 
-&ssphy_0 {
+&dp4 {
 	status = "okay";
+	phy-handle = <&qca8075_3>;
+	label = "lan3";
 };
 
-&CPU0 {
-	/delete-property/ cpu-supply;
+&dp5 {
+	status = "okay";
+	phy-handle = <&qca8075_4>;
+	label = "wan";
 };
 
-&CPU1 {
-	/delete-property/ cpu-supply;
-};
-
-&CPU2 {
-	/delete-property/ cpu-supply;
-};
-
-&CPU3 {
-	/delete-property/ cpu-supply;
+&wifi {
+	status = "okay";
+	qcom,ath11k-calibration-variant = "JDC-AX1800-Pro";
+	qcom,ath11k-fw-memory-mode = <1>;
 };
