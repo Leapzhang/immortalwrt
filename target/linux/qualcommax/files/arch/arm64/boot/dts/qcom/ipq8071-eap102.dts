@@ -89,7 +89,7 @@
 	};
 
 	button_pins: button-pins {
-		reset_button {
+		mux {
 			pins = "gpio66";
 			function = "gpio";
 			drive-strength = <8>;

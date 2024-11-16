@@ -19,27 +19,27 @@
 		pinctrl-names = "default";
 
 		led_power: power {
-			label = "ax18:blue:power";
+			label = "blue:power";
 			gpio = <&tlmm 73 GPIO_ACTIVE_HIGH>;
 		};
 
 		wan {
-			label = "ax18:blue:wan";
+			label = "blue:wan";
 			gpio = <&tlmm 74 GPIO_ACTIVE_HIGH>;
 		};
 
 		wlan2g {
-			label = "ax18:blue:wlan2g";
+			label = "blue:wlan2g";
 			gpio = <&tlmm 37 GPIO_ACTIVE_HIGH>;
 		};
 
 		wlan5g {
-			label = "ax18:blue:wlan5g";
+			label = "blue:wlan5g";
 			gpio = <&tlmm 35 GPIO_ACTIVE_HIGH>;
 		};
 
 		wps {
-			label = "ax18:red:wps";
+			label = "red:wps";
 			gpio = <&tlmm 69 GPIO_ACTIVE_HIGH>;
 		};
 	};

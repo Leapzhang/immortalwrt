@@ -100,44 +100,9 @@
 		};
 	};
 
-	leds_pins: leds_pinmux {
-		led_power_green {
-			pins = "gpio21";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-down;
-		};
-
-		led_power_red {
-			pins = "gpio22";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-down;
-		};
-
-		led_white {
-			pins = "gpio26";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-down;
-		};
-
-		led_green {
-			pins = "gpio29";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-down;
-		};
-
-		led_red {
-			pins = "gpio31";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-down;
-		};
-
-		led_blue {
-			pins = "gpio33";
+	leds_pins: leds-pins {
+		mux {
+			pins = "gpio21", "gpio22", "gpio26", "gpio29", "gpio31", "gpio33";
 			function = "gpio";
 			drive-strength = <8>;
 			bias-pull-down;

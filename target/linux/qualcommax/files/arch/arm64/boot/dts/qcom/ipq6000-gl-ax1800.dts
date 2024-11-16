@@ -12,7 +12,7 @@
 	};
 };
 
-&ethernet_0 {
+&mdio {
 	qca8075_3: ethernet-phy@3 {
 		compatible = "ethernet-phy-ieee802.3-c22";
 		reg = <3>;
@@ -28,11 +28,11 @@
 	switch_lan_bmp = <(ESS_PORT2 | ESS_PORT3 | ESS_PORT4 | ESS_PORT5)>;
 
 	qcom,port_phyinfo {
-		port@3 {
+		port@4 {
 			port_id = <4>;
 			phy_address = <3>;
 		};
-		port@4 {
+		port@5 {
 			port_id = <5>;
 			phy_address = <4>;
 		};

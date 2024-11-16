@@ -89,8 +89,16 @@
 };
 
 &tlmm {
-	/* TZ has exclusive control over GPIO20 */
 	gpio-reserved-ranges = <20 1>;
+
+	led_pins: led-pins {
+		leds {
+			pins = "gpio35", "gpio37", "gpio50";
+			function = "gpio";
+			drive-strength = <8>;
+			bias-pull-down;
+		};
+	};
 
 	mdio_pins: mdio-pins {
 		mdc {
@@ -119,15 +127,6 @@
 		function = "blsp0_spi";
 		drive-strength = <8>;
 		bias-pull-down;
-	};
-
-	led_pins: led-pins {
-		leds {
-			pins = "gpio35", "gpio37", "gpio50";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-down;
-		};
 	};
 
 	sd_vmmc_en_default: sd-vmmc-en-default-state {

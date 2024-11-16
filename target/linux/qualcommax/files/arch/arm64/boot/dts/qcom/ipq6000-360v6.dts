@@ -54,17 +54,17 @@
 		pinctrl-names = "default";
 
 		led_status_red: red {
-			label = "v6:red:status";
+			label = "red:status";
 			gpios = <&tlmm 71 GPIO_ACTIVE_HIGH>;
 		};
 
 		led_status_orange: orange {
-			label = "v6:orange:status";
+			label = "orange:status";
 			gpios = <&tlmm 72 GPIO_ACTIVE_HIGH>;
 		};
 
 		led_status_green: green {
-			label = "v6:green:status";
+			label = "green:status";
 			gpios = <&tlmm 73 GPIO_ACTIVE_HIGH>;
 		};
 	};

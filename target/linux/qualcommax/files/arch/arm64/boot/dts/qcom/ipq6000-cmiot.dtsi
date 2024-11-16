@@ -14,8 +14,8 @@
 		/* Aliases as required by u-boot to patch MAC addresses */
 		ethernet0 = &dp1;
 		ethernet1 = &dp2;
-		ethernet2 = &dp3;
 		ethernet3 = &dp4;
+		ethernet4 = &dp5;
 	};
 
 	chosen {
@@ -48,6 +48,15 @@
 };
 
 &tlmm {
+	button_pins: button-pins {
+		mux {
+			pins = "gpio9", "gpio60";
+			function = "gpio";
+			drive-strength = <8>;
+			bias-pull-up;
+		};
+	};
+
 	mdio_pins: mdio-pins {
 		mdc {
 			pins = "gpio64";
@@ -63,37 +72,15 @@
 			bias-pull-up;
 		};
 	};
-
-	button_pins: button-pins {
-		wps_button {
-			pins = "gpio9";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-up;
-		};
-
-		reset_button {
-			pins = "gpio60";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-up;
-		};
-	};
 };
 
 &dp1 {
-	status = "okay";
-	phy-handle = <&qca8075_4>;
-	label = "wan";
-};
-
-&dp2 {
 	status = "okay";
 	phy-handle = <&qca8075_0>;
 	label = "lan3";
 };
 
-&dp3 {
+&dp2 {
 	status = "okay";
 	phy-handle = <&qca8075_1>;
 	label = "lan2";
@@ -103,6 +90,12 @@
 	status = "okay";
 	phy-handle = <&qca8075_3>;
 	label = "lan1";
+};
+
+&dp5 {
+	status = "okay";
+	phy-handle = <&qca8075_4>;
+	label = "wan";
 };
 
 &edma {

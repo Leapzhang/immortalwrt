@@ -28,7 +28,6 @@
 };
 
 &tlmm {
-
 	sd_pins: sd-pins {
 		sd {
 			pins = "gpio62";
@@ -42,8 +41,8 @@
 		};
 	};
 
-	pwm_pins: pwm_pinmux {
-		pinmux {
+	pwm_pins: pwm-pins {
+		pwm {
 			pins = "gpio30";
 			function = "pwm13";
 			drive-strength = <8>;

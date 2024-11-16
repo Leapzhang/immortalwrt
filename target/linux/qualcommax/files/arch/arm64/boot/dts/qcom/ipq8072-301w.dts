@@ -188,15 +188,8 @@
 	};
 
 	button_pins: button-state {
-		wps-pins {
-			pins = "gpio57";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-up;
-		};
-
-		rst-pins {
-			pins = "gpio67";
+		mux {
+			pins = "gpio57", "gpio67";
 			function = "gpio";
 			drive-strength = <8>;
 			bias-pull-up;
@@ -204,10 +197,12 @@
 	};
 
 	leds_pins: leds-state {
-		pins = "gpio1", "gpio3", "gpio4", "gpio6", "gpio7", "gpio8", "gpio11", "gpio12", "gpio13", "gpio14", "gpio15", "gpio42", "gpio51", "gpio52", "gpio54", "gpio56";
-		function = "gpio";
-		drive-strength = <8>;
-		bias-pull-down;
+		mux {
+			pins = "gpio1", "gpio3", "gpio4", "gpio6", "gpio7", "gpio8", "gpio11", "gpio12", "gpio13", "gpio14", "gpio15", "gpio42", "gpio51", "gpio52", "gpio54", "gpio56";
+			function = "gpio";
+			drive-strength = <8>;
+			bias-pull-down;
+		};
 	};
 };
 

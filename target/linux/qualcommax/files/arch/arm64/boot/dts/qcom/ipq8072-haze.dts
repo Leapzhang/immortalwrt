@@ -68,15 +68,8 @@
 	};
 
 	button_pins: button-state {
-		wps-pins {
-			pins = "gpio42";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-up;
-		};
-
-		rst-pins {
-			pins = "gpio44";
+		mux {
+			pins = "gpio42", "gpio44";
 			function = "gpio";
 			drive-strength = <8>;
 			bias-pull-up;
@@ -84,10 +77,12 @@
 	};
 
 	i2c_3_pins: i2c-3-state {
-		pins = "gpio46", "gpio47";
-		function = "blsp2_i2c";
-		drive-strength = <8>;
-		bias-disable;
+		mux {
+			pins = "gpio46", "gpio47";
+			function = "blsp2_i2c";
+			drive-strength = <8>;
+			bias-disable;
+		};
 	};
 };
 

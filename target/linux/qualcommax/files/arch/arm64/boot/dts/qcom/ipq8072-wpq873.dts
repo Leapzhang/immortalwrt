@@ -92,10 +92,12 @@
 	};
 
 	i2c_pins: i2c-pins {
-		pins = "gpio0", "gpio2";
-		function = "blsp5_i2c";
-		drive-strength = <8>;
-		bias-disable;
+		mux {
+			pins = "gpio0", "gpio2";
+			function = "blsp5_i2c";
+			drive-strength = <8>;
+			bias-disable;
+		};
 	};
 };
 
@@ -148,7 +150,7 @@
 	};
 
 	button_pins: button-pins {
-		reset_button {
+		mux {
 			pins = "gpio66";
 			function = "gpio";
 			drive-strength = <8>;

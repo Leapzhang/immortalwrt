@@ -528,7 +528,7 @@
 		#size-cells = <2>;
 		ranges;
 
-		wifi0: wifi@1,0 {
+		wifi@1,0 {
 			status = "okay";
 
 			compatible = "qcom,ath10k";

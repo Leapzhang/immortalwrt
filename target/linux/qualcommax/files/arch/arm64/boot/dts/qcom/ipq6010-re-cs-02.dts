@@ -176,9 +176,10 @@
 
 		wifi@1,0 {
 			status = "okay";
+
 			compatible = "pci17cb,1104";
 			qcom,ath11k-fw-memory-mode = <1>;
-			qcom,ath11k-calibration-variant = "JDC-AX1800-Pro";
+			qcom,ath11k-calibration-variant = "JDC-AX6600";
 			reg = <0x00010000 0 0 0 0>;
 		};
 	};
@@ -232,18 +233,22 @@
 			port_id = <1>;
 			phy_address = <24>;
 		};
+
 		port@2 {
 			port_id = <2>;
 			phy_address = <25>;
 		};
+
 		port@3 {
 			port_id = <3>;
 			phy_address = <26>;
 		};
+
 		port@4 {
 			port_id = <4>;
 			phy_address = <27>;
 		};
+
 		port@5 {
 			port_id = <5>;
 			phy_address = <12>;

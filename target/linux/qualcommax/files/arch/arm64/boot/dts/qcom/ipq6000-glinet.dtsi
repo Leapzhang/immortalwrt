@@ -65,27 +65,21 @@
 &tlmm {
 	gpio-reserved-ranges = <20 1>;
 
-	spi_1_pins: spi-1-pins {
+	button_pins: button-pins {
 		mux {
-			pins = "gpio38", "gpio39", "gpio40", "gpio41";
-			function = "blsp0_spi";
+			pins = "gpio9", "gpio18";
+			function = "gpio";
 			drive-strength = <8>;
-			bias-pull-down;
+			bias-pull-up;
 		};
 	};
 
-	button_pins: button-pins {
-		switch_button {
-			pins = "gpio9";
+	leds_pins: leds-pins {
+		mux {
+			pins = "gpio35", "gpio37";
 			function = "gpio";
 			drive-strength = <8>;
-			bias-pull-up;
-		};
-		reset_button {
-			pins = "gpio18";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-up;
+			bias-pull-down;
 		};
 	};
 
@@ -120,16 +114,10 @@
 		};
 	};
 
-	leds_pins: leds-pins {
-		white {
-			pins = "gpio35";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-down;
-		};
-		blue {
-			pins = "gpio37";
-			function = "gpio";
+	spi_1_pins: spi-1-pins {
+		mux {
+			pins = "gpio38", "gpio39", "gpio40", "gpio41";
+			function = "blsp0_spi";
 			drive-strength = <8>;
 			bias-pull-down;
 		};
@@ -226,27 +214,19 @@
 	pinctrl-names = "default";
 	reset-gpios = <&tlmm 74 GPIO_ACTIVE_LOW>;
 
-	ethernet_0: ethernet-phy-package@0 {
-		compatible = "qcom,qca8075-package";
-		#address-cells = <1>;
-		#size-cells = <0>;
+	qca8075_0: ethernet-phy@0 {
+		compatible = "ethernet-phy-ieee802.3-c22";
 		reg = <0>;
-		qcom,package-mode = "psgmii";
+	};
 
-		qca8075_0: ethernet-phy@0 {
-			compatible = "ethernet-phy-ieee802.3-c22";
-			reg = <0>;
-		};
+	qca8075_1: ethernet-phy@1 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <1>;
+	};
 
-		qca8075_1: ethernet-phy@1 {
-			compatible = "ethernet-phy-ieee802.3-c22";
-			reg = <1>;
-		};
-
-		qca8075_2: ethernet-phy@2 {
-			compatible = "ethernet-phy-ieee802.3-c22";
-			reg = <2>;
-		};
+	qca8075_2: ethernet-phy@2 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <2>;
 	};
 };
 
@@ -258,15 +238,15 @@
 	switch_mac_mode = <MAC_MODE_PSGMII>;
 
 	qcom,port_phyinfo {
-		port@0 {
+		port@1 {
 			port_id = <1>;
 			phy_address = <0>;
 		};
-		port@1 {
+		port@2 {
 			port_id = <2>;
 			phy_address = <1>;
 		};
-		port@2 {
+		port@3 {
 			port_id = <3>;
 			phy_address = <2>;
 		};
