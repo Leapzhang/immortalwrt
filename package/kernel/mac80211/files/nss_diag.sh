@@ -73,10 +73,10 @@ done
 
 echo -e "${reset}"
 echo -ne "${bold}${red}  NSS PKGS${reset}: ${white}"
-opkg list-installed | awk -v count=0 '
+apk list 2>/dev/null | awk -v count=0 '
   /kmod-qca-nss|^nss/ {
   if(count>0) tab="            "
-  print tab $0
+  print tab $1
   count++
 }'
 echo -ne "${reset}"

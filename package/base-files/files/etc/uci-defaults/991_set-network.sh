@@ -16,6 +16,7 @@ uci commit dhcp
 
 uci set network.lan.ip6assign='64'
 uci set network.lan.ip6ifaceid='eui64'
+uci set network.globals.ula_prefix=''
 
 uci commit network
 /etc/init.d/network restart
