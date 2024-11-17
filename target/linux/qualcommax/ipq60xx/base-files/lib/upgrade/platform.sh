@@ -63,9 +63,9 @@ platform_do_upgrade() {
 	jdcloud,re-cs-02|\
 	jdcloud,re-cs-07|\
 	redmi,ax5-jdcloud)
-		kernelname="0:HLOS"
-		rootfsname="rootfs"
-		mmc_do_upgrade "$1"
+		CI_KERNPART="0:HLOS"
+		CI_ROOTPART="rootfs"
+		emmc_do_upgrade "$1"
 		;;
 	*)
 		default_do_upgrade "$1"

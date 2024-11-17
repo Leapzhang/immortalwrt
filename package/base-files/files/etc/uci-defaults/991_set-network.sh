@@ -7,6 +7,8 @@ uci set dhcp.lan.force '1'
 uci set dhcp.lan.ra='hybrid'
 uci set dhcp.lan.ra_default '1'
 uci set dhcp.lan.ra_slaac='1'
+uci set dhcp.lan.max_preferred_lifetime='900'
+uci set dhcp.lan.max_valid_lifetime='1800'
 
 uci del_list dhcp.lan.ra_flags='other-config'
 uci add_list dhcp.lan.ra_flags='none'
